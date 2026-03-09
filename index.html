@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Salchipapería ¡Oh Que Rico! 🍟</title>
+  <meta name="description" content="Las mejores salchipapas de Lluyllucucha con delivery rápido. Pide por WhatsApp.">
+
+  <!-- Open Graph / WhatsApp / Facebook preview -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Salchipapería ¡Oh Que Rico! 🍟">
+  <meta property="og:description" content="Las mejores salchipapas de Lluyllucucha con delivery rápido 🛵. ¡Pide por WhatsApp ahora!">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1639024471283-03518883512d?w=1200&q=80">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:url" content="https://ohquerico.com">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Salchipapería ¡Oh Que Rico! 🍟">
+  <meta name="twitter:description" content="Las mejores salchipapas de Lluyllucucha con delivery rápido.">
+  <meta name="twitter:image" content="https://images.unsplash.com/photo-1639024471283-03518883512d?w=1200&q=80">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- FRIES RAIN CANVAS -->
+  <canvas id="friesCanvas"></canvas>
+
+  <!-- HEADER -->
+  <header>
+    <div class="header-inner">
+      <div class="logo-wrap">
+        <span class="logo-emoji">🍟</span>
+        <div>
+          <h1>SALCHIPAPERÍA</h1>
+          <h2>¡OH QUE RICO!</h2>
+        </div>
+      </div>
+      <nav>
+        <a href="#menu">Menú</a>
+        <a href="#bebidas">Bebidas</a>
+        <a href="#pedido">Mi Pedido</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero" id="inicio">
+    <div class="hero-content">
+      <div class="hero-badge">🛵 Delivery rápido</div>
+      <h2>Las mejores<br><span class="highlight">salchipapas</span><br>de Lluyllucucha</h2>
+      <p>Ingredientes frescos · Salsas caseras · Sabor único</p>
+      <a href="#menu" class="hero-btn">Ver Menú <i class="fas fa-arrow-down"></i></a>
+    </div>
+    <div class="hero-img-wrap">
+      <div class="hero-img-circle">
+        <img src="https://images.unsplash.com/photo-1639024471283-03518883512d?w=600&q=80" alt="Salchipapas Oh Que Rico">
+      </div>
+      <div class="floating-badge badge1">S/ 8 desde</div>
+      <div class="floating-badge badge2">⭐ #1 en Lluyllucucha</div>
+    </div>
+  </section>
+
+  <!-- MENU -->
+  <section class="menu" id="menu">
+    <div class="section-header">
+      <h2>🍽️ Nuestro Menú</h2>
+      <p>Todo hecho al momento con amor</p>
+    </div>
+    <div class="grid">
+
+      <div class="card">
+        <div class="card-img-wrap">
+          <img src="images/menu/chorypollo.jpg" alt="Chorypollo"
+               onerror="this.src='https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&q=80'">
+          <span class="card-tag">🔥 Popular</span>
+        </div>
+        <div class="card-body">
+          <h3>Chorypollo</h3>
+          <p class="desc">Chorizo + pollo + papas fritas</p>
+          <div class="card-footer">
+            <span class="price">S/ 15</span>
+            <button onclick="agregar('Chorypollo', 15)"><i class="fas fa-plus"></i> Agregar</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-img-wrap">
+          <img src="images/menu/pollipapa.jpg" alt="Pollipapa"
+               onerror="this.src='https://images.unsplash.com/photo-1562967916-eb82221dfb92?w=400&q=80'">
+        </div>
+        <div class="card-body">
+          <h3>Pollipapa</h3>
+          <p class="desc">Pollo frito + papas crujientes</p>
+          <div class="card-footer">
+            <span class="price">S/ 10</span>
+            <button onclick="agregar('Pollipapa', 10)"><i class="fas fa-plus"></i> Agregar</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-img-wrap">
+          <img src="images/menu/salchipapa.jpg" alt="Salchipapa"
+               onerror="this.src='https://images.unsplash.com/photo-1576107232684-1279f2f13c06?w=400&q=80'">
+          <span class="card-tag card-tag-new">⭐ Clásica</span>
+        </div>
+        <div class="card-body">
+          <h3>Salchipapa</h3>
+          <p class="desc">Salchicha + papas + salsas</p>
+          <div class="card-footer">
+            <span class="price">S/ 8</span>
+            <button onclick="agregar('Salchipapa', 8)"><i class="fas fa-plus"></i> Agregar</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-img-wrap">
+          <img src="images/menu/mixto.jpg" alt="Mixto"
+               onerror="this.src='https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=400&q=80'">
+        </div>
+        <div class="card-body">
+          <h3>Mixto</h3>
+          <p class="desc">Salchicha + chorizo + papas</p>
+          <div class="card-footer">
+            <span class="price">S/ 12</span>
+            <button onclick="agregar('Mixto', 12)"><i class="fas fa-plus"></i> Agregar</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-img-wrap">
+          <img src="images/menu/combinado.jpg" alt="Combinado"
+               onerror="this.src='https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=400&q=80'">
+        </div>
+        <div class="card-body">
+          <h3>Combinado</h3>
+          <p class="desc">Lo mejor de todo en un plato</p>
+          <div class="card-footer">
+            <span class="price">S/ 10</span>
+            <button onclick="agregar('Combinado', 10)"><i class="fas fa-plus"></i> Agregar</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-img-wrap">
+          <img src="images/menu/pollo-horno.jpg" alt="Pollo al horno"
+               onerror="this.src='https://images.unsplash.com/photo-1598103442097-8b74394b95c7?w=400&q=80'">
+        </div>
+        <div class="card-body">
+          <h3>Pollo al horno</h3>
+          <p class="desc">Pollo jugoso al horno + papas</p>
+          <div class="card-footer">
+            <span class="price">S/ 10</span>
+            <button onclick="agregar('Pollo al horno', 10)"><i class="fas fa-plus"></i> Agregar</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-img-wrap">
+          <img src="images/menu/chaufa.jpg" alt="Chaufa"
+               onerror="this.src='https://images.unsplash.com/photo-1563245372-f21724e3856d?w=400&q=80'">
+        </div>
+        <div class="card-body">
+          <h3>Chaufa + papa + huevo</h3>
+          <p class="desc">Arroz chaufa con papas y huevo</p>
+          <div class="card-footer">
+            <span class="price">S/ 8</span>
+            <button onclick="agregar('Chaufa + papa + huevo', 8)"><i class="fas fa-plus"></i> Agregar</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- BEBIDAS -->
+  <section class="bebidas" id="bebidas">
+    <div class="section-header">
+      <h2>🥤 Bebidas</h2>
+      <p>Refrescantes para acompañar tu pedido</p>
+    </div>
+    <div class="grid grid-bebidas">
+
+      <div class="card card-bebida">
+        <div class="card-img-wrap">
+          <img src="images/bebidas/chicha.jpg" alt="Chicha morada"
+               onerror="this.src='https://images.unsplash.com/photo-1563227812-0ea4c22e6cc8?w=400&q=80'">
+        </div>
+        <div class="card-body">
+          <h3>Chicha morada</h3>
+          <p class="desc">Preparada en casa, bien fría</p>
+        </div>
+      </div>
+
+      <div class="card card-bebida">
+        <div class="card-img-wrap">
+          <img src="images/bebidas/gaseosa.jpg" alt="Gaseosa"
+               onerror="this.src='https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=400&q=80'">
+        </div>
+        <div class="card-body">
+          <h3>Gaseosa</h3>
+          <p class="desc">Inca Kola, Coca-Cola y más</p>
+        </div>
+      </div>
+
+      <div class="card card-bebida">
+        <div class="card-img-wrap">
+          <img src="images/bebidas/cafe.jpg" alt="Café"
+               onerror="this.src='https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400&q=80'">
+        </div>
+        <div class="card-body">
+          <h3>Café</h3>
+          <p class="desc">Café caliente para el frío</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CARRITO -->
+  <section class="carrito" id="pedido">
+    <div class="carrito-inner">
+      <div class="carrito-header">
+        <h2>🛒 Mi Pedido</h2>
+        <button class="btn-limpiar" onclick="limpiar()"><i class="fas fa-trash"></i> Limpiar</button>
+      </div>
+      <div class="carrito-empty" id="carritoEmpty">
+        <span>🍟</span>
+        <p>Tu pedido está vacío</p>
+        <small>Agrega algo del menú</small>
+      </div>
+      <ul id="lista"></ul>
+      <div class="carrito-total" id="carritoTotal" style="display:none">
+        <div class="total-row">
+          <span>Subtotal</span>
+          <span>S/ <span id="subtotal">0</span></span>
+        </div>
+        <div class="total-row total-final">
+          <span>Total</span>
+          <span>S/ <span id="total">0</span></span>
+        </div>
+        <button class="btn-enviar" onclick="enviar()">
+          <i class="fab fa-whatsapp"></i> Enviar por WhatsApp
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- INFO STRIP -->
+  <section class="info-strip">
+    <div class="info-item">
+      <i class="fas fa-clock"></i>
+      <span>Lunes a Domingo<br><strong>8am – 10pm</strong></span>
+    </div>
+    <div class="info-item">
+      <i class="fas fa-map-marker-alt"></i>
+      <span>JR. Arequipa 315<br><strong>Lluyllucucha</strong></span>
+    </div>
+    <div class="info-item">
+      <i class="fas fa-motorcycle"></i>
+      <span>Delivery disponible<br><strong>968 531 996</strong></span>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span class="logo-emoji">🍟</span>
+        <div>
+          <h3>SALCHIPAPERÍA</h3>
+          <p>¡Oh Que Rico!</p>
+        </div>
+      </div>
+      <div class="footer-contact">
+        <p><i class="fas fa-map-marker-alt"></i> JR. Arequipa 315 – Lluyllucucha</p>
+        <p><i class="fas fa-phone"></i> 968 531 996</p>
+      </div>
+      <div class="footer-social">
+        <p>Síguenos en redes</p>
+        <div class="social-icons">
+          <!-- Reemplaza # con tus links reales -->
+          <a href="https://www.facebook.com/TU_PAGINA" target="_blank" rel="noopener" class="social-btn facebook" aria-label="Facebook">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+          <a href="https://www.instagram.com/TU_USUARIO" target="_blank" rel="noopener" class="social-btn instagram" aria-label="Instagram">
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a href="https://www.tiktok.com/@TU_USUARIO" target="_blank" rel="noopener" class="social-btn tiktok" aria-label="TikTok">
+            <i class="fab fa-tiktok"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-copy">
+      <p>© 2025 Salchipapería ¡Oh Que Rico! · Hecho con 🍟 en Lluyllucucha</p>
+    </div>
+  </footer>
+
+  <!-- WHATSAPP FLOTANTE -->
+  <a class="whatsapp-float" href="https://wa.me/51968531996?text=Hola%2C%20quiero%20hacer%20un%20pedido%20🍟" target="_blank" aria-label="WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+    <span class="wsp-tooltip">¡Pide por WhatsApp!</span>
+  </a>
+
+  <!-- CARRITO FLOTANTE -->
+  <button class="carrito-float" onclick="scrollCarrito()" id="carritoFloat" style="display:none" aria-label="Ver pedido">
+    <i class="fas fa-shopping-bag"></i>
+    <span class="carrito-badge" id="carritoCount">0</span>
+  </button>
+
+  <script src="script.js"></script>
+</body>
+</html>
