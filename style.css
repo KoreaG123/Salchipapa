@@ -81,7 +81,7 @@ header {
 }
 
 .header-logo {
-  height: 75px;
+  height: 95px;
   width: auto;
   object-fit: contain;
   filter: drop-shadow(0 2px 8px rgba(255,214,0,0.5));
