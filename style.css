@@ -190,16 +190,31 @@ nav a:hover {
   order: 2;
   position: relative;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.hero-img-titulo {
+  font-family: 'Fredoka One', cursive;
+  font-size: clamp(1.6rem, 4vw, 2.2rem);
+  color: var(--negro);
+  letter-spacing: 3px;
+  text-align: center;
+  background: var(--amarillo);
+  padding: 8px 28px;
+  border-radius: 50px;
+  box-shadow: 0 4px 15px rgba(255,214,0,0.5);
+  animation: pulse 2s infinite;
 }
 
 .hero-img-circle {
-  width: 320px;
-  height: 320px;
+  width: 360px;
+  height: 360px;
   border-radius: 50%;
   overflow: hidden;
-  border: 6px solid var(--amarillo);
-  box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+  border: 7px solid var(--amarillo);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.25);
   animation: float 4s ease-in-out infinite;
 }
 
@@ -836,9 +851,14 @@ footer {
   .hero-content { order: 2; }
   .hero-img-wrap { order: 1; }
 
+  .hero-img-titulo {
+    font-size: 1.4rem;
+    padding: 7px 22px;
+  }
+
   .hero-img-circle {
-    width: 220px;
-    height: 220px;
+    width: 290px;
+    height: 290px;
   }
 
   .highlight::after { display: none; }
@@ -890,4 +910,11 @@ footer {
   .card-footer button { font-size: 0.75rem; padding: 7px 10px; }
 
   .hero-content h2 { font-size: 1.9rem; }
+
+  .hero-img-titulo { font-size: 1.2rem; }
+
+  .hero-img-circle {
+    width: 260px;
+    height: 260px;
+  }
 }
