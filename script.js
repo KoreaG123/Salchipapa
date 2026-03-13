@@ -97,10 +97,6 @@ function scrollCarrito() {
   document.getElementById('pedido').scrollIntoView({ behavior: 'smooth' });
 }
 
-// ===================================
-// ANIMACIÓN PAPAS CAYENDO (CANVAS)
-// ===================================
-
 const canvas = document.getElementById('friesCanvas');
 const ctx = canvas.getContext('2d');
 
@@ -115,27 +111,32 @@ function resize() {
 resize();
 window.addEventListener('resize', resize);
 
-const FRIE_EMOJIS = ['🍟', '🍟', '🌭', '🍟', '🍟', '🧂'];
+// Más emojis y colores variados
+const FRIE_EMOJIS = ['🍟', '🌭', '🍔', '🧂', '🌶️', '⭐', '👑', '🍟', '🍟', '✨'];
+const COLORS = ['#FFD600', '#FF6B35', '#E53935', '#25D366', '#FF9800', '#9C27B0', '#2196F3', '#FF4081'];
 
 function createFry() {
   return {
     x: Math.random() * canvas.width,
     y: -60,
-    size: Math.random() * 18 + 14,        // 14–32px
-    speed: Math.random() * 1.2 + 0.4,    // 0.4–1.6px per frame
+    size: Math.random() * 22 + 12,
+    speed: Math.random() * 1.5 + 0.3,
     rotation: Math.random() * Math.PI * 2,
-    rotSpeed: (Math.random() - 0.5) * 0.04,
+    rotSpeed: (Math.random() - 0.5) * 0.05,
     emoji: FRIE_EMOJIS[Math.floor(Math.random() * FRIE_EMOJIS.length)],
-    sway: Math.random() * 0.8 + 0.2,
+    color: COLORS[Math.floor(Math.random() * COLORS.length)],
+    sway: Math.random() * 1.2 + 0.2,
     swayOffset: Math.random() * Math.PI * 2,
-    opacity: Math.random() * 0.5 + 0.3,
+    opacity: Math.random() * 0.55 + 0.25,
+    // Algunos son círculos de color en vez de emojis
+    isCircle: Math.random() < 0.15,
   };
 }
 
-// Init with spread fries
-for (let i = 0; i < 22; i++) {
+// Init spread
+for (let i = 0; i < 28; i++) {
   const f = createFry();
-  f.y = Math.random() * canvas.height; // start spread across screen
+  f.y = Math.random() * canvas.height;
   fries.push(f);
 }
 
@@ -145,27 +146,38 @@ function animateFries() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   tick++;
 
-  // Spawn new fry occasionally
-  if (tick % 55 === 0 && fries.length < 30) {
+  if (tick % 45 === 0 && fries.length < 35) {
     fries.push(createFry());
   }
 
   fries.forEach((f, i) => {
     f.y += f.speed;
-    f.x += Math.sin(tick * 0.02 + f.swayOffset) * f.sway;
+    f.x += Math.sin(tick * 0.018 + f.swayOffset) * f.sway;
     f.rotation += f.rotSpeed;
 
     ctx.save();
     ctx.globalAlpha = f.opacity;
     ctx.translate(f.x, f.y);
     ctx.rotate(f.rotation);
-    ctx.font = `${f.size}px serif`;
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    ctx.fillText(f.emoji, 0, 0);
+
+    if (f.isCircle) {
+      // Burbujas de color
+      ctx.beginPath();
+      ctx.arc(0, 0, f.size * 0.5, 0, Math.PI * 2);
+      ctx.fillStyle = f.color;
+      ctx.fill();
+    } else {
+      // Emoji con sombra de color
+      ctx.shadowColor = f.color;
+      ctx.shadowBlur = 8;
+      ctx.font = `${f.size}px serif`;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(f.emoji, 0, 0);
+    }
+
     ctx.restore();
 
-    // Reset if off screen
     if (f.y > canvas.height + 60) {
       fries[i] = createFry();
     }
@@ -176,13 +188,9 @@ function animateFries() {
 
 animateFries();
 
-// Pause animation when tab not visible (perf)
 document.addEventListener('visibilitychange', () => {
-  if (document.hidden) {
-    cancelAnimationFrame(animFrame);
-  } else {
-    animateFries();
-  }
+  if (document.hidden) cancelAnimationFrame(animFrame);
+  else animateFries();
 });
 
 // ===================================
