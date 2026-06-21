@@ -1,27 +1,16 @@
-// ===================================
-// SALCHIPAPERÍA ¡OH QUE RICO! - JS
-// ===================================
+// ================================
+// CHIFA SAZÓN & BRASA — JS
+// ================================
 
 let carrito = [];
 let total = 0;
 
-// --- AGREGAR AL CARRITO ---
 function agregar(nombre, precio) {
   carrito.push({ nombre, precio });
   total += precio;
   actualizar();
-
-  // Animación en botón
-  const btns = document.querySelectorAll('.card-footer button');
-  btns.forEach(btn => {
-    if (btn.getAttribute('onclick') && btn.getAttribute('onclick').includes(nombre.replace(' ', ''))) {
-      btn.classList.add('added');
-      setTimeout(() => btn.classList.remove('added'), 350);
-    }
-  });
 }
 
-// --- QUITAR DEL CARRITO ---
 function quitar(index) {
   total -= carrito[index].precio;
   if (total < 0) total = 0;
@@ -29,32 +18,30 @@ function quitar(index) {
   actualizar();
 }
 
-// --- LIMPIAR CARRITO ---
 function limpiar() {
   carrito = [];
   total = 0;
   actualizar();
 }
 
-// --- ACTUALIZAR UI ---
 function actualizar() {
-  const lista = document.getElementById('lista');
-  const carritoEmpty = document.getElementById('carritoEmpty');
+  const lista        = document.getElementById('lista');
+  const vacio        = document.getElementById('carritoVacio');
   const carritoTotal = document.getElementById('carritoTotal');
-  const carritoFloat = document.getElementById('carritoFloat');
-  const carritoCount = document.getElementById('carritoCount');
+  const floatBtn     = document.getElementById('carritoFloat');
+  const badge        = document.getElementById('carritoCount');
 
   lista.innerHTML = '';
 
   if (carrito.length === 0) {
-    carritoEmpty.style.display = 'block';
+    vacio.style.display = 'block';
     carritoTotal.style.display = 'none';
-    carritoFloat.style.display = 'none';
+    floatBtn.style.display = 'none';
   } else {
-    carritoEmpty.style.display = 'none';
+    vacio.style.display = 'none';
     carritoTotal.style.display = 'block';
-    carritoFloat.style.display = 'flex';
-    carritoCount.textContent = carrito.length;
+    floatBtn.style.display = 'flex';
+    badge.textContent = carrito.length;
 
     carrito.forEach((p, i) => {
       const li = document.createElement('li');
@@ -69,131 +56,112 @@ function actualizar() {
     });
   }
 
-  document.getElementById('subtotal').textContent = total;
   document.getElementById('total').textContent = total;
 }
 
-// --- ENVIAR POR WHATSAPP ---
 function enviar() {
   if (carrito.length === 0) {
-    alert('¡Agrega algo al pedido primero! 🍟');
+    alert('¡Agrega algo al pedido primero! 🍜');
     return;
   }
 
-  let mensaje = '🍟 *Hola, quiero hacer un pedido de Salchipapería ¡Oh Que Rico!*%0A%0A';
-  mensaje += '*Mi pedido:*%0A';
+  let msg = '🍜 *Hola, quiero hacer un pedido de Chifa Sazón & Brasa*%0A%0A';
+  msg += '*Mi pedido:*%0A';
+  carrito.forEach(p => { msg += `• ${p.nombre} — S/ ${p.precio}%0A`; });
+  msg += `%0A*Total: S/ ${total}*%0A%0A¡Gracias! 😊`;
 
-  carrito.forEach(p => {
-    mensaje += `• ${p.nombre} — S/ ${p.precio}%0A`;
-  });
-
-  mensaje += `%0A*Total: S/ ${total}*%0A%0A¡Gracias! 😊`;
-
-  window.open('https://wa.me/51968531996?text=' + mensaje, '_blank');
+  window.open('https://wa.me/51932951567?text=' + msg, '_blank');
 }
 
-// --- SCROLL AL CARRITO ---
-function scrollCarrito() {
+function scrollPedido() {
   document.getElementById('pedido').scrollIntoView({ behavior: 'smooth' });
 }
 
-const canvas = document.getElementById('friesCanvas');
-const ctx = canvas.getContext('2d');
-
-let fries = [];
-let animFrame;
+// ================================
+// ANIMACIÓN — partículas chifa
+// ================================
+const canvas = document.getElementById('particulas');
+const ctx    = canvas.getContext('2d');
+let parts = [], raf;
 
 function resize() {
-  canvas.width = window.innerWidth;
+  canvas.width  = window.innerWidth;
   canvas.height = window.innerHeight;
 }
-
 resize();
 window.addEventListener('resize', resize);
 
-// Más emojis y colores variados
-const FRIE_EMOJIS = ['🍟', '🌭', '🍔', '🧂', '🌶️', '⭐', '👑', '🍟', '🍟', '✨'];
-const COLORS = ['#FFD600', '#FF6B35', '#E53935', '#25D366', '#FF9800', '#9C27B0', '#2196F3', '#FF4081'];
+const EMOJIS  = ['🍜', '🍗', '🥢', '🏮', '🔥', '🍜', '🍗', '⭐', '🌶️', '🥡'];
+const COLORES = ['#C0392B', '#D4A017', '#F5C842', '#E53935', '#FF6B35', '#8B0000'];
 
-function createFry() {
+function crearParte() {
   return {
-    x: Math.random() * canvas.width,
-    y: -60,
-    size: Math.random() * 22 + 12,
-    speed: Math.random() * 1.5 + 0.3,
-    rotation: Math.random() * Math.PI * 2,
-    rotSpeed: (Math.random() - 0.5) * 0.05,
-    emoji: FRIE_EMOJIS[Math.floor(Math.random() * FRIE_EMOJIS.length)],
-    color: COLORS[Math.floor(Math.random() * COLORS.length)],
-    sway: Math.random() * 1.2 + 0.2,
-    swayOffset: Math.random() * Math.PI * 2,
-    opacity: Math.random() * 0.55 + 0.25,
-    // Algunos son círculos de color en vez de emojis
-    isCircle: Math.random() < 0.15,
+    x:         Math.random() * canvas.width,
+    y:         -50,
+    size:      Math.random() * 18 + 12,
+    speed:     Math.random() * 1.3 + 0.3,
+    rot:       Math.random() * Math.PI * 2,
+    rotSpd:    (Math.random() - 0.5) * 0.04,
+    emoji:     EMOJIS[Math.floor(Math.random() * EMOJIS.length)],
+    color:     COLORES[Math.floor(Math.random() * COLORES.length)],
+    sway:      Math.random() * 0.9 + 0.2,
+    swayOff:   Math.random() * Math.PI * 2,
+    opacity:   Math.random() * 0.45 + 0.2,
+    isCircle:  Math.random() < 0.12,
   };
 }
 
-// Init spread
-for (let i = 0; i < 28; i++) {
-  const f = createFry();
-  f.y = Math.random() * canvas.height;
-  fries.push(f);
+for (let i = 0; i < 25; i++) {
+  const p = crearParte();
+  p.y = Math.random() * canvas.height;
+  parts.push(p);
 }
 
 let tick = 0;
 
-function animateFries() {
+function animar() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   tick++;
 
-  if (tick % 45 === 0 && fries.length < 35) {
-    fries.push(createFry());
-  }
+  if (tick % 50 === 0 && parts.length < 32) parts.push(crearParte());
 
-  fries.forEach((f, i) => {
-    f.y += f.speed;
-    f.x += Math.sin(tick * 0.018 + f.swayOffset) * f.sway;
-    f.rotation += f.rotSpeed;
+  parts.forEach((p, i) => {
+    p.y   += p.speed;
+    p.x   += Math.sin(tick * 0.018 + p.swayOff) * p.sway;
+    p.rot += p.rotSpd;
 
     ctx.save();
-    ctx.globalAlpha = f.opacity;
-    ctx.translate(f.x, f.y);
-    ctx.rotate(f.rotation);
+    ctx.globalAlpha = p.opacity;
+    ctx.translate(p.x, p.y);
+    ctx.rotate(p.rot);
 
-    if (f.isCircle) {
-      // Burbujas de color
+    if (p.isCircle) {
       ctx.beginPath();
-      ctx.arc(0, 0, f.size * 0.5, 0, Math.PI * 2);
-      ctx.fillStyle = f.color;
+      ctx.arc(0, 0, p.size * 0.5, 0, Math.PI * 2);
+      ctx.fillStyle = p.color;
       ctx.fill();
     } else {
-      // Emoji con sombra de color
-      ctx.shadowColor = f.color;
-      ctx.shadowBlur = 8;
-      ctx.font = `${f.size}px serif`;
+      ctx.shadowColor = p.color;
+      ctx.shadowBlur  = 6;
+      ctx.font = `${p.size}px serif`;
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
-      ctx.fillText(f.emoji, 0, 0);
+      ctx.fillText(p.emoji, 0, 0);
     }
 
     ctx.restore();
 
-    if (f.y > canvas.height + 60) {
-      fries[i] = createFry();
-    }
+    if (p.y > canvas.height + 60) parts[i] = crearParte();
   });
 
-  animFrame = requestAnimationFrame(animateFries);
+  raf = requestAnimationFrame(animar);
 }
 
-animateFries();
+animar();
 
 document.addEventListener('visibilitychange', () => {
-  if (document.hidden) cancelAnimationFrame(animFrame);
-  else animateFries();
+  if (document.hidden) cancelAnimationFrame(raf);
+  else animar();
 });
 
-// ===================================
-// INIT
-// ===================================
 actualizar();
